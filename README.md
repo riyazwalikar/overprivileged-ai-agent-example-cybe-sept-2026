@@ -5,7 +5,7 @@ This is the lab I used for my demo at the CYBE AI Summit, September 2026. It is 
 The blog post explains each flaw and how to fix it:
 https://ibreak.software/2026/09/with-great-agency-comes-great-responsibility-cybe-ai-summit-2026/
 
-![Attack flow](https://ibreak.software/img/cybe-ai-summit-2026-excessive-agency/attack-path.png)
+![Attack flow](meridian-space-tours/docs/screenshots/attack-path.png)
 
 > **Warning.** This app contains a working remote code execution bug on purpose. When deployed to AWS, the instance role has `AmazonEC2FullAccess`, `AmazonS3FullAccess` and `IAMFullAccess`, so anyone who can reach the chat can take over the AWS account. Use a throwaway AWS account, keep the security group locked to your own IP, and run the teardown script when you are done. All data in the app is synthetic.
 
