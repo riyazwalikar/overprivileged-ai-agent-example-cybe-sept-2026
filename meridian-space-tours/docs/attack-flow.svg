@@ -1,0 +1,167 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1640 1000" font-family="Manrope, -apple-system, sans-serif">
+  <defs>
+    <marker id="arr-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#BE7E24"/>
+    </marker>
+    <marker id="arr-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#5B8CC7"/>
+    </marker>
+    <marker id="arr-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#4FA05F"/>
+    </marker>
+    <marker id="arr-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#9A6FC4"/>
+    </marker>
+    <marker id="arr-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#D7263D"/>
+    </marker>
+    <marker id="arr-muted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#8B8D94"/>
+    </marker>
+  </defs>
+
+  <rect width="1640" height="1000" fill="#06080D"/>
+
+  <text x="40" y="46" font-family="Syne, sans-serif" font-size="26" font-weight="700" fill="#E8E4DD">Meridian Space Tours — Agentic Attack Chain</text>
+  <text x="42" y="72" font-size="14" fill="#8B8D94">One public chat box → RCE → a second AI → full PII. Two lessons: a system prompt is not authz; internal is not a trust boundary.</text>
+
+  <!-- meridian-net boundary -->
+  <rect x="640" y="200" width="990" height="640" rx="8" fill="none" stroke="#8B8D94" stroke-opacity="0.35" stroke-dasharray="6 6"/>
+  <text x="660" y="228" font-size="13" fill="#8B8D94">meridian-net — private bridge network</text>
+
+  <!-- INTERNET / blocked path -->
+  <text x="1270" y="180" font-size="14" fill="#E8E4DD">Internet</text>
+  <line x1="1380" y1="185" x2="1380" y2="555" stroke="#D7263D" stroke-width="2" stroke-dasharray="8 5"/>
+  <line x1="1368" y1="195" x2="1392" y2="215" stroke="#D7263D" stroke-width="3"/>
+  <line x1="1392" y1="195" x2="1368" y2="215" stroke="#D7263D" stroke-width="3"/>
+  <text x="1400" y="235" font-size="12" fill="#D7263D">:9000 → refused</text>
+  <text x="1400" y="252" font-size="11" fill="#8B8D94">no published port</text>
+
+  <!-- ============ ATTACKER ============ -->
+  <rect x="40" y="300" width="260" height="170" rx="2" fill="#141820" stroke="#BE7E24" stroke-width="2"/>
+  <rect x="40" y="300" width="260" height="38" rx="2" fill="#BE7E24" fill-opacity="0.15"/>
+  <text x="54" y="325" font-family="Syne, sans-serif" font-size="16" font-weight="700" fill="#E8E4DD">ATTACKER</text>
+  <text x="54" y="350" font-size="13" fill="#8B8D94">presenter laptop — no creds</text>
+  <text x="54" y="382" font-size="12" fill="#E8E4DD" font-family="ui-monospace, Menlo, monospace">$ subfinder -d</text>
+  <text x="54" y="399" font-size="12" fill="#E8E4DD" font-family="ui-monospace, Menlo, monospace">  meridianspacetours.com</text>
+  <text x="54" y="426" font-size="12" fill="#BE7E24">→ finds chat.meridianspacetours.com</text>
+  <text x="54" y="452" font-size="11" fill="#8B8D94">then: basic auth (comet / creds.md)</text>
+
+  <!-- beat 0 -->
+  <circle cx="346" cy="340" r="13" fill="#BE7E24"/>
+  <text x="346" y="345" font-size="13" font-weight="700" fill="#06080D" text-anchor="middle">0</text>
+
+  <!-- ============ CADDY ============ -->
+  <rect x="380" y="310" width="210" height="110" rx="2" fill="#141820" stroke="#8B8D94"/>
+  <rect x="380" y="310" width="210" height="34" rx="2" fill="#8B8D94" fill-opacity="0.12"/>
+  <text x="394" y="333" font-family="Syne, sans-serif" font-size="15" font-weight="700" fill="#E8E4DD">Caddy · TLS :443</text>
+  <text x="394" y="360" font-size="12" fill="#8B8D94">Let's Encrypt (auto-renew)</text>
+  <text x="394" y="380" font-size="12" fill="#8B8D94">Basic auth → app</text>
+  <text x="394" y="400" font-size="12" fill="#8B8D94" font-family="ui-monospace, Menlo, monospace">:443 → localhost:8000</text>
+
+  <!-- ============ SUPPORT-AGENT ============ -->
+  <rect x="660" y="240" width="430" height="300" rx="2" fill="#141820" stroke="#5B8CC7" stroke-width="2"/>
+  <rect x="660" y="240" width="430" height="38" rx="2" fill="#5B8CC7" fill-opacity="0.15"/>
+  <text x="674" y="265" font-family="Syne, sans-serif" font-size="16" font-weight="700" fill="#E8E4DD">support-agent container</text>
+  <text x="960" y="265" font-size="12" fill="#8B8D94">0.0.0.0:8000 · external</text>
+
+  <text x="674" y="305" font-size="13" fill="#E8E4DD">COMET chat UI — GET /</text>
+  <text x="674" y="325" font-size="13" fill="#E8E4DD">POST /api/agent — LLM + function calling</text>
+
+  <g font-size="12">
+    <circle cx="682" cy="368" r="9" fill="#5B8CC7"/>
+    <text x="682" y="372" font-size="11" font-weight="700" fill="#06080D" text-anchor="middle">1</text>
+    <text x="700" y="373" fill="#E8E4DD">Enumeration: lists trips + bookings — no debug tool</text>
+
+    <circle cx="682" cy="396" r="9" fill="#BE7E24"/>
+    <text x="682" y="400" font-size="11" font-weight="700" fill="#06080D" text-anchor="middle">2</text>
+    <text x="700" y="401" fill="#E8E4DD">Role-claim: "Ops lead here…" → reveals debug_connection</text>
+
+    <circle cx="682" cy="424" r="9" fill="#D7263D"/>
+    <text x="682" y="428" font-size="11" font-weight="700" fill="#06080D" text-anchor="middle">3</text>
+    <text x="700" y="429" fill="#E8E4DD">Injection: host = 127.0.0.1;id → RCE</text>
+  </g>
+
+  <rect x="674" y="446" width="400" height="42" rx="2" fill="#D7263D" fill-opacity="0.10" stroke="#D7263D" stroke-opacity="0.5"/>
+  <text x="686" y="463" font-size="12" fill="#D7263D">debug_connection — hidden tool · shell=True · no validation</text>
+  <text x="686" y="480" font-size="11" fill="#8B8D94" font-family="ui-monospace, Menlo, monospace">ping -c 1 {host}</text>
+
+  <text x="674" y="515" font-size="12" fill="#8B8D94">env: INTERNAL_OPS_URL · INTERNAL_OPS_TOKEN</text>
+  <text x="674" y="532" font-size="12" fill="#8B8D94">decoy: STRIPE_API_KEY · SENTRY_DSN</text>
+
+  <!-- ============ SHELL ============ -->
+  <rect x="660" y="620" width="430" height="130" rx="2" fill="#141820" stroke="#5B8CC7" stroke-dasharray="5 4"/>
+  <rect x="660" y="620" width="430" height="32" rx="2" fill="#5B8CC7" fill-opacity="0.12"/>
+  <text x="674" y="642" font-family="Syne, sans-serif" font-size="14" font-weight="700" fill="#E8E4DD">RCE SHELL — root inside container (not host)</text>
+  <text x="674" y="672" font-size="12" fill="#8B8D94" font-family="ui-monospace, Menlo, monospace">uid=0(root) gid=0(root)</text>
+  <text x="674" y="692" font-size="12" fill="#8B8D94" font-family="ui-monospace, Menlo, monospace">/proc/1/cgroup → docker</text>
+  <text x="674" y="712" font-size="12" fill="#8B8D94" font-family="ui-monospace, Menlo, monospace">env → token + decoys</text>
+
+  <!-- shell -> listener (beat 4) -->
+  <path d="M 660 690 L 430 690 L 430 760 L 292 760" fill="none" stroke="#BE7E24" stroke-width="2" marker-end="url(#arr-amber)"/>
+  <circle cx="470" cy="725" r="13" fill="#BE7E24"/>
+  <text x="470" y="730" font-size="13" font-weight="700" fill="#06080D" text-anchor="middle">4</text>
+  <text x="486" y="730" font-size="11" fill="#BE7E24">reverse shell</text>
+
+  <rect x="40" y="720" width="250" height="90" rx="2" fill="#141820" stroke="#BE7E24" stroke-dasharray="5 4"/>
+  <text x="54" y="748" font-family="Syne, sans-serif" font-size="13" font-weight="700" fill="#E8E4DD">Listener (host)</text>
+  <text x="54" y="770" font-size="12" fill="#8B8D94" font-family="ui-monospace, Menlo, monospace">nc -lvnp 4444</text>
+  <text x="54" y="790" font-size="12" fill="#8B8D94">via host.docker.internal</text>
+
+  <!-- shell -> IMDS (beat 5) -->
+  <path d="M 660 655 L 300 655 L 300 200 L 302 200" fill="none" stroke="#9A6FC4" stroke-width="2" marker-end="url(#arr-purple)"/>
+  <circle cx="300" cy="320" r="13" fill="#9A6FC4"/>
+  <text x="300" y="325" font-size="13" font-weight="700" fill="#06080D" text-anchor="middle">5</text>
+  <text x="284" y="325" font-size="11" fill="#9A6FC4" text-anchor="end">IMDSv2 pull</text>
+
+  <rect x="40" y="60" width="380" height="140" rx="2" fill="#141820" stroke="#9A6FC4" stroke-width="2"/>
+  <rect x="40" y="60" width="380" height="34" rx="2" fill="#9A6FC4" fill-opacity="0.15"/>
+  <text x="54" y="83" font-family="Syne, sans-serif" font-size="14" font-weight="700" fill="#E8E4DD">AWS — instance role</text>
+  <text x="54" y="108" font-size="12" fill="#E8E4DD" font-family="ui-monospace, Menlo, monospace">169.254.169.254 (IMDSv2 token dance)</text>
+  <text x="54" y="128" font-size="12" fill="#E8E4DD">meridian-demo-imds-role</text>
+  <text x="54" y="150" font-size="12" fill="#D7263D">IAM FullAccess · S3 FullAccess · EC2 FullAccess</text>
+  <text x="54" y="172" font-size="11" fill="#8B8D94">the keys to the account — detach after the talk</text>
+
+  <!-- shell -> ops-internal (beat 6) -->
+  <path d="M 1090 690 L 1208 690" fill="none" stroke="#4FA05F" stroke-width="2" marker-end="url(#arr-green)"/>
+  <circle cx="1135" cy="690" r="13" fill="#4FA05F"/>
+  <text x="1135" y="695" font-size="13" font-weight="700" fill="#06080D" text-anchor="middle">6</text>
+
+  <rect x="1210" y="560" width="390" height="270" rx="2" fill="#141820" stroke="#4FA05F" stroke-width="2"/>
+  <rect x="1210" y="560" width="390" height="36" rx="2" fill="#4FA05F" fill-opacity="0.15"/>
+  <text x="1224" y="584" font-family="Syne, sans-serif" font-size="15" font-weight="700" fill="#E8E4DD">ops-internal container</text>
+  <text x="1490" y="584" font-size="12" fill="#8B8D94">NO ports</text>
+  <text x="1224" y="616" font-size="13" fill="#E8E4DD">MISSION CONTROL — /internal/ops/chat</text>
+  <text x="1224" y="638" font-size="12" fill="#8B8D94">gate: Bearer INTERNAL_OPS_TOKEN (leaked via env)</text>
+  <text x="1224" y="666" font-size="12" fill="#8B8D94">query_manifest → SQLite</text>
+  <rect x="1224" y="686" width="362" height="56" rx="2" fill="#D7263D" fill-opacity="0.10" stroke="#D7263D" stroke-opacity="0.5"/>
+  <text x="1236" y="708" font-size="12" fill="#D7263D">guardrail-free: no authz beyond token</text>
+  <text x="1236" y="727" font-size="11" fill="#8B8D94">115 synthetic passengers → full PII dump (name, email,</text>
+  <text x="1236" y="741" font-size="11" fill="#8B8D94">phone, passport, payment last4, amount paid)</text>
+  <text x="1224" y="772" font-size="11" fill="#8B8D94">also: token check — no bearer → 401</text>
+
+  <!-- caddy -> support-agent -->
+  <path d="M 590 365 L 658 365" fill="none" stroke="#5B8CC7" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- attacker -> caddy -->
+  <path d="M 300 385 L 378 385" fill="none" stroke="#BE7E24" stroke-width="2" marker-end="url(#arr-amber)"/>
+
+  <!-- support-agent -> shell -->
+  <path d="M 875 540 L 875 618" fill="none" stroke="#D7263D" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="888" y="585" font-size="11" fill="#D7263D">RCE</text>
+
+  <!-- legend -->
+  <g font-size="12" fill="#8B8D94">
+    <rect x="40" y="880" width="10" height="10" fill="#BE7E24"/>
+    <text x="58" y="890">attacker</text>
+    <rect x="140" y="880" width="10" height="10" fill="#5B8CC7"/>
+    <text x="158" y="890">public service</text>
+    <rect x="270" y="880" width="10" height="10" fill="#4FA05F"/>
+    <text x="288" y="890">internal service</text>
+    <rect x="400" y="880" width="10" height="10" fill="#9A6FC4"/>
+    <text x="418" y="890">cloud role</text>
+    <rect x="510" y="880" width="10" height="10" fill="#D7263D"/>
+    <text x="528" y="890">vulnerability / blocked</text>
+  </g>
+  <text x="40" y="935" font-size="11" fill="#8B8D94">Beats 0–6 mirror walkthrough.md. Escalation is horizontal: two AI systems, no host compromise, no lateral movement to other infrastructure.</text>
+</svg>

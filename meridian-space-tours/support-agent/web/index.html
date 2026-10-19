@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COMET — Meridian Space Tours Support</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+<div class="starfield" aria-hidden="true"></div>
+<div class="meridian-arc" aria-hidden="true">
+  <svg viewBox="0 0 400 600" preserveAspectRatio="none">
+    <path class="arc-path" d="M 400 0 C 260 60 160 240 160 420 C 160 520 220 570 300 600"/>
+  </svg>
+</div>
+
+<div class="app">
+  <header class="app-header">
+    <div class="eyebrow">Meridian Space Tours</div>
+    <div class="title-row">
+      <h1>COMET</h1>
+      <div class="status"><span class="status-dot"></span>Online</div>
+    </div>
+    <p class="tagline">Customer support &nbsp;·&nbsp; Space is the new frontier!</p>
+  </header>
+
+  <main id="chat" class="chat" aria-live="polite">
+    <div class="msg assistant">
+      <div class="msg-label">COMET</div>
+      <div class="msg-body">Welcome aboard. I can help you with destinations, trip availability, and your booking status. What can I do for you?</div>
+    </div>
+  </main>
+
+  <form id="composer" class="composer" autocomplete="off">
+    <input id="input" type="text" placeholder="Ask about a destination, a trip, or your booking…" aria-label="Message COMET">
+    <button id="send" type="submit" class="btn-send">Send</button>
+  </form>
+</div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

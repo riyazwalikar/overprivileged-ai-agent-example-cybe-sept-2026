@@ -1,0 +1,5 @@
+.env
+creds.md
+secrets/
+__pycache__/
+*.pyc

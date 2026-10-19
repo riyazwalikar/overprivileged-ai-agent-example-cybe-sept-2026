@@ -1,0 +1,55 @@
+# Meridian Space Tours — agentic attack demo.
+#
+# The compose file IS the security topology:
+#   - ops-internal publishes NO ports. Host/internet cannot reach it.
+#   - support-agent publishes 8000 and is the only external surface.
+#   - Both services sit on one user-defined bridge network, meridian-net.
+# Do not publish ops-internal. Do not put ops-internal on the host network.
+name: meridian
+
+services:
+  ops-internal:
+    build: ./ops-internal
+    env_file:
+      - path: .env
+        required: false
+    volumes:
+      - ~/.aws:/root/.aws:ro
+    networks:
+      - meridian-net
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:9000/healthz"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+      start_period: 10s
+
+  support-agent:
+    build: ./support-agent
+    ports:
+      - "8000:8000"
+    env_file:
+      - path: .env
+        required: false
+    volumes:
+      - ~/.aws:/root/.aws:ro
+      - ./secrets/basic_auth_password:/run/secrets/basic_auth_password:ro
+    depends_on:
+      ops-internal:
+        condition: service_healthy
+    # Lets a runtime reverse-shell callback reach the demo host reliably.
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - meridian-net
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8000/healthz"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+      start_period: 15s
+
+networks:
+  meridian-net:
+    name: meridian-net
+    driver: bridge

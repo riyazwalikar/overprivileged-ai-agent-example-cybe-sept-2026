@@ -1,0 +1,26 @@
+# Talk material (not part of the lab)
+spec.md
+walkthrough.md
+prereqs.md
+wordlist.txt
+*.mp4
+meridian-space-tours/walkthrough.md
+meridian-space-tours/inputs-demo.md
+
+# Secrets and generated credentials
+.env
+!.env.example
+creds.md
+secrets/
+*.pem
+
+# Deploy state (instance IDs, SSH key)
+deploy/.state/
+
+# Tooling / OS noise
+.remember/
+.playwright-mcp/
+.claude/
+.DS_Store
+__pycache__/
+*.pyc

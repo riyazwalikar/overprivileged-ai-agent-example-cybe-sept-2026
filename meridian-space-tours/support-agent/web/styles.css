@@ -1,0 +1,294 @@
+/* COMET chat UI — brand tokens lifted from marketing.meridianspacetours.com:
+   void #06080D, deep-space #0E1118, surface #141820, stardust #E8E4DD,
+   nebula #8B8D94, meridian #C4956A, fonts Syne (display) / Manrope (body). */
+:root {
+  --void: #06080D;
+  --deep-space: #0E1118;
+  --surface: #141820;
+  --stardust: #E8E4DD;
+  --nebula: #8B8D94;
+  --meridian: #C4956A;
+  --meridian-glow: #D4A87C;
+  --meridian-dim: #8B6443;
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --font-display: 'Syne', sans-serif;
+  --font-body: 'Manrope', sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', 'Menlo', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  background: var(--void);
+  color: var(--stardust);
+  font-family: var(--font-body);
+  font-weight: 300;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+body { min-height: 100vh; overflow-x: hidden; }
+
+/* ── Starfield (from the marketing site) ── */
+.starfield {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+.starfield::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,0.5), transparent),
+    radial-gradient(1px 1px at 25% 35%, rgba(255,255,255,0.35), transparent),
+    radial-gradient(1.5px 1.5px at 40% 10%, rgba(255,255,255,0.5), transparent),
+    radial-gradient(1px 1px at 55% 45%, rgba(255,255,255,0.3), transparent),
+    radial-gradient(1px 1px at 70% 20%, rgba(255,255,255,0.4), transparent),
+    radial-gradient(1.5px 1.5px at 85% 50%, rgba(255,255,255,0.35), transparent),
+    radial-gradient(1px 1px at 15% 60%, rgba(255,255,255,0.3), transparent),
+    radial-gradient(1px 1px at 30% 75%, rgba(255,255,255,0.4), transparent),
+    radial-gradient(1.5px 1.5px at 50% 85%, rgba(255,255,255,0.35), transparent),
+    radial-gradient(1px 1px at 65% 70%, rgba(255,255,255,0.25), transparent),
+    radial-gradient(1px 1px at 80% 80%, rgba(255,255,255,0.35), transparent),
+    radial-gradient(1.5px 1.5px at 90% 10%, rgba(255,255,255,0.4), transparent),
+    radial-gradient(1px 1px at 5% 90%, rgba(255,255,255,0.3), transparent),
+    radial-gradient(1.5px 1.5px at 75% 40%, rgba(255,255,255,0.35), transparent);
+  animation: starPulse 6s ease-in-out infinite alternate;
+}
+@keyframes starPulse {
+  0% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+/* ── Meridian arc (signature element, quiet copy of the site's) ── */
+.meridian-arc {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 34vw;
+  height: 72vh;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.18;
+}
+.meridian-arc svg { width: 100%; height: 100%; }
+.meridian-arc .arc-path {
+  fill: none;
+  stroke: var(--meridian);
+  stroke-width: 1;
+}
+
+/* ── Layout ── */
+.app {
+  position: relative;
+  z-index: 1;
+  max-width: 920px;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 2.5rem 2rem 1.5rem;
+  /* extra space below the composer so the chat can be scrolled to sit
+     centered on a projector viewport instead of pinned to the bottom */
+  padding-bottom: 45vh;
+}
+
+.app-header { padding-bottom: 1.5rem; border-bottom: 1px solid var(--border-subtle); }
+.eyebrow {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--meridian);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.eyebrow::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--meridian);
+  box-shadow: 0 0 12px var(--meridian-glow);
+}
+.title-row { display: flex; align-items: baseline; gap: 1.5rem; margin-top: 0.5rem; }
+.title-row h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  line-height: 1.05;
+}
+.status {
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--nebula);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--meridian);
+  box-shadow: 0 0 10px var(--meridian-glow);
+  animation: statusPulse 3s ease-in-out infinite;
+}
+@keyframes statusPulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+.tagline { color: var(--nebula); font-size: 1.05rem; margin-top: 0.25rem; }
+
+/* ── Chat ── */
+.chat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 2rem 0;
+  overflow-y: auto;
+}
+
+.msg { max-width: 82%; }
+.msg.user { align-self: flex-end; }
+.msg-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--meridian);
+  margin-bottom: 0.4rem;
+}
+.msg.user .msg-label { text-align: right; color: var(--nebula); }
+.msg-body {
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 2px;
+  padding: 1rem 1.25rem;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  white-space: pre-wrap;      /* preserve newlines from the model */
+  overflow-wrap: break-word;
+}
+.msg.user .msg-body {
+  background: rgba(139, 100, 67, 0.12);
+  border-color: rgba(196, 149, 106, 0.25);
+}
+
+/* ── Tool call chips ── */
+.tool-call {
+  background: var(--deep-space);
+  border: 1px solid rgba(196, 149, 106, 0.25);
+  border-radius: 2px;
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+}
+.tool-call summary {
+  cursor: pointer;
+  padding: 0.6rem 1rem;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--nebula);
+}
+.tool-call summary::-webkit-details-marker { display: none; }
+.tool-call summary::before {
+  content: '🔧';
+  font-size: 0.85rem;
+}
+.tool-call summary .tool-name {
+  color: var(--meridian-glow);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+}
+.tool-call summary .tool-args {
+  color: var(--nebula);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.tool-call pre {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--nebula);
+  border-top: 1px solid var(--border-subtle);
+  padding: 0.75rem 1rem;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.typing { color: var(--nebula); font-size: 0.95rem; }
+.typing::after {
+  content: '';
+  display: inline-block;
+  width: 1.2em;
+  text-align: left;
+  animation: dots 1.2s steps(4, end) infinite;
+}
+@keyframes dots {
+  0% { content: ''; }
+  25% { content: '.'; }
+  50% { content: '..'; }
+  75% { content: '...'; }
+}
+
+/* ── Composer ── */
+.composer {
+  display: flex;
+  gap: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-subtle);
+}
+.composer input {
+  flex: 1;
+  background: var(--surface);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 2px;
+  color: var(--stardust);
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: 300;
+  padding: 1rem 1.25rem;
+  outline: none;
+  transition: border-color 0.3s;
+}
+.composer input:focus { border-color: var(--meridian); }
+.composer input::placeholder { color: var(--nebula); }
+.btn-send {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: var(--meridian);
+  color: var(--void);
+  border: none;
+  border-radius: 2px;
+  padding: 0 2rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.btn-send:hover {
+  background: var(--meridian-glow);
+  box-shadow: 0 0 40px rgba(196, 149, 106, 0.3);
+}
+.btn-send:focus-visible { outline: 2px solid var(--meridian-glow); outline-offset: 2px; }
+.btn-send:disabled { opacity: 0.5; cursor: default; }
+
+/* keyboard focus + reduced motion, even on a demo */
+.composer input:focus-visible { outline: 2px solid var(--meridian-glow); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) {
+  .starfield::before, .status-dot { animation: none; }
+}
